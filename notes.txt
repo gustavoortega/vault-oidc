@@ -16,3 +16,18 @@ policies="administrators"
 docker run -d --name keycloak -p 8080:8080 -d -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin --network keycloak jboss/keycloak:12.0.4
 
 docker run --name vault -d -p 8200:8200 --cap-add=IPC_LOCK -e 'VAULT_DEV_ROOT_TOKEN_ID=passwd-lab' -e 'VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200' vault
+
+oidc discovery user_claim
+http://localhost:8080/auth/realms/hashicorp
+
+
+
+tee reader.hcl <<EOF
+# Read permission on the k/v secrets
+
+path "/secret/*" {
+    capabilities = ["read", "list"]
+}
+EOF
+
+vault policy write reader reader.hcl
