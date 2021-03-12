@@ -1,0 +1,20 @@
+vault write auth/oidc/role/reader \
+bound_audiences="vault" \
+allowed_redirect_uris="http://localhost:8080/auth/realms/hashicorp/auth/oidc/oidc/callback" \
+user_claim="sub" \
+groups_claim="groups" \
+policies="reader"
+
+vault write auth/oidc/role/admin \
+bound_audiences="vault" \
+allowed_redirect_uris="http://localhost:8080/auth/realms/hashicorp/auth/oidc/oidc/callback" \
+user_claim="sub" \
+groups_claim="groups" \
+policies="administrator"
+
+vault write auth/oidc/role/manager \
+bound_audiences="vault" \
+allowed_redirect_uris="http://localhost:8080/auth/realms/hashicorp/auth/oidc/oidc/callback" \
+user_claim="sub" \
+groups_claim="groups" \
+policies="manager"
